@@ -23,6 +23,7 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Variables](#variables)
 * [Naming](#naming)
 * [Comments](#comments)
+  * [Documentation](#documentation) 
 * [Init & Dealloc](#init-and-dealloc)
 * [Literals](#literals)
 * [CGRect Functions](#cgrect-functions)
@@ -33,6 +34,7 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Image Naming](#image-naming)
 * [Booleans](#booleans)
 * [Singletons](#singletons)
+* [Logging](#logging)
 * [Imports](#imports)
 * [Xcode Project](#xcode-project)
 
@@ -274,7 +276,11 @@ id varnm;
 
 When they are needed, comments should be used to explain **why** a particular piece of code does something. Any comments that are used must be kept up-to-date or deleted.
 
-Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
+Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate [documentation](#documentation).
+
+### Documentation
+
+Document header files using the `/** */` comment block. Documentation can include `@param`, `@return` and [more](http://nshipster.com/documentation/). This convention can be used to generate [documentation](https://github.com/tomaz/appledoc).
 
 ## init and dealloc
 
@@ -462,6 +468,18 @@ If the name of a `BOOL` property is expressed as an adjective, the property can 
 @property (assign, getter=isEditable) BOOL editable;
 ```
 Text and example taken from the [Cocoa Naming Guidelines](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html#//apple_ref/doc/uid/20001284-BAJGIIJE).
+
+## Logging
+
+Logging with `NSLog` should be prefixed with the class name (and optionally the method name).
+``` objc
+#import "ZWAPIClient.h"
+
+- (id)init {
+    NSURL *url = [NSURL URLWithString:kApiBaseUrl];
+    NSLog(@"ZWAPIClient - init - url: %@", url);
+    ...
+```
 
 ## Singletons
 
